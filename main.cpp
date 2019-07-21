@@ -5,7 +5,6 @@
 int main() {
 
     PokemonType myPokemon;
-
     myPokemon.Level = 1;
     myPokemon.Type = 'F';
 
