@@ -1,2 +1,2 @@
 # tp_1
-# nueva línea
+# Por ahora es un main.cpp que suma dos números.
