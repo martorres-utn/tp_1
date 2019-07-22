@@ -6,7 +6,7 @@ int main() {
 
     PokemonType myPokemon;
     myPokemon.Level = 1;
-    myPokemon.Type = 'F';
+    myPokemon.Type = 'N';
 
     // like if you were assigning myPokemon.Name = "Juancho" because you can't assign string values directly to char array. You will have to copy them.
     strcpy(myPokemon.Name, "Juancho");
