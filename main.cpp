@@ -2,6 +2,30 @@
 #include <bits/stdc++.h>
 #include "DataTypes.h"
 
+template<class T>
+void getValueFromTerminal(T &target, std::string inputMessage, std::string errorMessage)
+{
+    std::cout << inputMessage;
+    while(!(std::cin >> target)){
+        std::cout << errorMessage << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << inputMessage;
+    }
+}
+
+template<class T>
+void getValidValueFromTerminal(T &target, std::string inputMessage, bool (*validation)(T & argument), std::string errorMessage)
+{
+    std::cout << inputMessage;
+    while(!(std::cin >> target) || !validation(target)){
+        std::cout << errorMessage << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << inputMessage;
+    }
+}
+
 int main() {
     //main menu options
     std::map<int, std::string> mapOptions = {
@@ -28,8 +52,10 @@ int main() {
         }
 
         //read console option
-        std::cout << "tu opcion:";
-        std::cin >> selectedOption;
+        auto optionValidation = [](int &value){
+            return (value >= 1 && value <= 3);
+        };
+        getValidValueFromTerminal<int>(selectedOption, "Ingresa tu opcion:", optionValidation ,  "ERROR! (ingresa un numero entero entre 1 y 3)");
 
         switch(selectedOption)
         {
@@ -41,16 +67,26 @@ int main() {
 
                 do
                 {
-                    std::cout << "ingresa TIPO (T para tierra, F para fuego, A para agua, E para electrico):" << std::endl;
-                    std::cin >> newPokemon.Type;
+                    auto typeValidation = [](char &value){
+                        //could be replaced for regex match?
+                        return (value == 'T' || value == 'F' || value == 'A' || value == 'E' || value == 'Q');
+                    };
+                    getValidValueFromTerminal<char>(newPokemon.Type, "Ingresa TIPO (T para tierra, F para fuego, A para agua, E para electrico):", typeValidation , "ERROR! (ingresa un tipo valido: T,F,A,E)");
 
                     if(newPokemon.Type != 'Q')
                     {
-                        std::cout << "ingresa NIVEL (valor numerico):" << std::endl;
-                        std::cin >> newPokemon.Level;
+                        auto levelValidation = [](int &value)
+                        {
+                            return (value >= 1 && value <=100);
+                        };
+                        getValidValueFromTerminal<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 100):", levelValidation, "ERROR! (ingresa un valor entero entre 1 y 100)");
 
-                        std::cout << "ingresa NOMBRE (valor alfanumerico , 10 max):" << std::endl;
-                        std::cin >> newPokemon.Name;
+                        auto nameValidation = []( char (&value)[10])
+                        {
+                            //check using regex?
+                            return true;
+                        };
+                        getValidValueFromTerminal<char[10]>(newPokemon.Name, "ingresa NOMBRE (valor alfanumerico , 10 max):", nameValidation, "ERROR! (ingresa un valor alfanumerico , 10 longitud max)");
 
                         pokemonVector.push_back(newPokemon);
 
