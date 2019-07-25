@@ -1,45 +1,7 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include "DataTypes.h"
-
-template<class T>
-void getValueFromTerminal(T &target, std::string inputMessage, std::string errorMessage)
-{
-    std::cout << inputMessage;
-    while(!(std::cin >> target)){
-        std::cout << errorMessage << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << inputMessage;
-    }
-}
-
-template<class T>
-void getValidValueFromTerminal(T &target, std::string inputMessage, bool (*validation)(T & argument), std::string errorMessage)
-{
-    std::cout << inputMessage;
-    while(!(std::cin >> target) || !validation(target)){
-        std::cout << errorMessage << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << inputMessage;
-    }
-}
-
-template<class T>
-void getTrimmedValueFromTerminal(T &target, std::string inputMessage, int maxSize, bool (*validation)(T & argument), std::string errorMessage)
-{
-    std::cout << inputMessage;
-    while(!(std::cin >> std::setw(maxSize) >> target) || !validation(target)){
-        std::cout << errorMessage << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << inputMessage;
-    }
-    //erase from stream the remaining data in order to prevent next std::cin to read from the previous remaining string.
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
+#include "includes/TerminalUtilities.h"
 
 int main() {
     //main menu options
@@ -70,7 +32,7 @@ int main() {
         auto optionValidation = [](int &value){
             return (value >= 1 && value <= 3);
         };
-        getValidValueFromTerminal<int>(selectedOption, "Ingresa tu opcion:>", optionValidation ,  "ERROR! (ingresa un numero entero entre 1 y 3)");
+        TerminalUtilities::getValidValue<int>(selectedOption, "Ingresa tu opcion:>", optionValidation ,  "ERROR! (ingresa un numero entero entre 1 y 3)");
 
         switch(selectedOption)
         {
@@ -86,7 +48,7 @@ int main() {
                         //could be replaced for regex match?
                         return (value == 'T' || value == 'F' || value == 'A' || value == 'E' || value == 'Q');
                     };
-                    getValidValueFromTerminal<char>(newPokemon.Type, "Ingresa TIPO (T para tierra, F para fuego, A para agua, E para electrico):>", typeValidation , "ERROR! (ingresa un tipo valido: T,F,A,E)");
+                    TerminalUtilities::getValidValue<char>(newPokemon.Type, "Ingresa TIPO (T para tierra, F para fuego, A para agua, E para electrico):>", typeValidation , "ERROR! (ingresa un tipo valido: T,F,A,E)");
 
                     if(newPokemon.Type != 'Q')
                     {
@@ -94,15 +56,14 @@ int main() {
                         {
                             return (value >= 1 && value <=100);
                         };
-                        getValidValueFromTerminal<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 100):>", levelValidation, "ERROR! (ingresa un valor entero entre 1 y 100)");
+                        TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 100):>", levelValidation, "ERROR! (ingresa un valor entero entre 1 y 100)");
 
                         auto nameValidation = []( char (&value)[10])
                         {
                             //check using regex?
                             return true;
                         };
-                        getTrimmedValueFromTerminal<char[10]>(newPokemon.Name, "Ingresa NOMBRE (valor alfanumerico , 10 max):>", 10, nameValidation, "ERROR! (ingresa un valor alfanumerico , 10 longitud max)");
-
+                        TerminalUtilities::getTrimmedValue<char[10]>(newPokemon.Name, "Ingresa NOMBRE (valor alfanumerico , 10 max):>", 10, nameValidation, "ERROR! (ingresa un valor alfanumerico , 10 longitud max)");
                         pokemonVector.push_back(newPokemon);
 
                         inputIndex++;
