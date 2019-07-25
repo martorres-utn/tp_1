@@ -74,6 +74,63 @@ namespace TerminalUtilities
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+
+    /*
+     * getValidValue: obtiene un valor de la consola, lo pasa a un string temporal para evaluarlo por regexp,
+     * si la cadena pasa el test se intenta depositar en target siempre que sea posible.
+     * Si ocurre algun error vuelve a solicitar el ingreso.
+     * - target: variable donde se quiere depositar el valor que se quiere leer de la consola.
+     * - inputMessage: descripcion del valor que se solicita al usuario.
+     * - regExpression: expresion regular para evaluar la cadena que sera enviada a target.
+     * - errorMessage: mensaje de error que se quiere mostrar al usuario en caso de falla.
+     * */
+    template<class T>
+    void getValidValue(T &target, std::string inputMessage, std::string regExpression, std::string errorMessage)
+    {
+        bool keepRequesting = true;
+        std::string tempExp;
+        std::cout << inputMessage;
+
+        while(!(std::cin >> tempExp) || !std::regex_match(tempExp, std::regex(regExpression)) || !(std::stringstream(tempExp) >> target) ){
+            std::cout << errorMessage << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << inputMessage;
+        }
+
+        //borra el resto de la cadena en caso de que se haya excedido durante el ingreso, previene que la siguiente sentencia std::cin lea del excedente.
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    /*
+     * getValidValue: obtiene un valor de la consola, lo pasa a un string temporal para evaluarlo por regexp,
+     * si la cadena pasa el test se intenta depositar en target siempre que sea posible.
+     * Si ocurre algun error vuelve a solicitar el ingreso.
+     * - target: variable donde se quiere depositar el valor que se quiere leer de la consola.
+     * - inputMessage: descripcion del valor que se solicita al usuario.
+     * - regExpression: expresion regular para evaluar la cadena que sera enviada a target.
+     * - validation: puntero a función bool que recibe como parámetro el tipo T de target. Se usa para realizar checkeos adicionales.
+     * - errorMessage: mensaje de error que se quiere mostrar al usuario en caso de falla.
+     * */
+    template<class T>
+    void getValidValue(T &target, std::string inputMessage, std::string regExpression, bool (*validation)(T & argument), std::string errorMessage)
+    {
+        bool keepRequesting = true;
+        std::string tempExp;
+        std::cout << inputMessage;
+
+        while(!(std::cin >> tempExp) || !std::regex_match(tempExp, std::regex(regExpression)) || !(std::stringstream(tempExp) >> target) || !validation(target)){
+            std::cout << errorMessage << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << inputMessage;
+        }
+
+        //borra el resto de la cadena en caso de que se haya excedido durante el ingreso, previene que la siguiente sentencia std::cin lea del excedente.
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }
 
 #endif //TP_1_TERMINALUTILITIES_H

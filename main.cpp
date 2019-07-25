@@ -28,11 +28,8 @@ int main() {
             std::cout << (*it).second << "[" << (*it).first << "]" << std::endl;
         }
 
-        //read console option
-        auto optionValidation = [](int &value){
-            return (value >= 1 && value <= 3);
-        };
-        TerminalUtilities::getValidValue<int>(selectedOption, "Ingresa tu opcion:>", optionValidation ,  "ERROR! (ingresa un numero entero entre 1 y 3)");
+        //solicita valor entero por terminal, la expresion sera evaluada por la regular expression del 3er parametro.
+        TerminalUtilities::getValidValue<int>(selectedOption, "Ingresa tu opcion:>", "^\\d{1}$", "ERROR! (ingresa un numero entero entre 1 y 3)");
 
         switch(selectedOption)
         {
@@ -44,26 +41,17 @@ int main() {
 
                 do
                 {
-                    auto typeValidation = [](char &value){
-                        //could be replaced for regex match?
-                        return (value == 'T' || value == 'F' || value == 'A' || value == 'E' || value == 'Q');
-                    };
-                    TerminalUtilities::getValidValue<char>(newPokemon.Type, "Ingresa TIPO (T para tierra, F para fuego, A para agua, E para electrico):>", typeValidation , "ERROR! (ingresa un tipo valido: T,F,A,E)");
+                    //solicita valor char por terminal, la expresion sera evaluada por regular expresion para coincidir con: T, F, A, E, Q(termina el ingreso)
+                    TerminalUtilities::getValidValue<char>(newPokemon.Type, "Ingresa TIPO (T para Tierra, F para Fuego, A para Agua, E para Electrico):>", "^(T|F|A|E|Q)$",  "ERROR! (ingresa un tipo valido: T,F,A,E)");
 
                     if(newPokemon.Type != 'Q')
                     {
-                        auto levelValidation = [](int &value)
-                        {
-                            return (value >= 1 && value <=100);
-                        };
-                        TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 100):>", levelValidation, "ERROR! (ingresa un valor entero entre 1 y 100)");
+                        //solicita valor int por terminal, la expresion sera evaluada por regular expression para coincidir con un numero entre 1 y 100.
+                        TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 100):>", "^[1-9][0-9]?$|^100$", "ERROR! (ingresa un valor entero entre 1 y 100)");
 
-                        auto nameValidation = []( char (&value)[10])
-                        {
-                            //check using regex?
-                            return true;
-                        };
-                        TerminalUtilities::getTrimmedValue<char[10]>(newPokemon.Name, "Ingresa NOMBRE (valor alfanumerico , 10 max):>", 10, nameValidation, "ERROR! (ingresa un valor alfanumerico , 10 longitud max)");
+                        //solicita valor char[10] por terminal, la expresion sera evaluada por regular expression para coincidir con una combinacion de letras mayusculas y minusculas entre a y z sin considerar caracteres especiales (longitud entre 1 y 10)
+                        TerminalUtilities::getValidValue<char[10]>(newPokemon.Name, "Ingresa NOMBRE (cadena de letras, 10 max):>", "^[a-zA-Z]{1,10}$", "ERROR! (ingresa una cadena de letras, 10 longitud max)");
+
                         pokemonVector.push_back(newPokemon);
 
                         inputIndex++;
