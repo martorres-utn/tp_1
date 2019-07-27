@@ -44,16 +44,17 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
 
 void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
 {
-    std::map<char, int> typeAmount = {};
+    std::map<char, int> typeAmount = {
+        {'T', 0},
+        {'F', 0},
+        {'A', 0},
+        {'E', 0}
+    };
 
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
         PokemonType pokemon = (*it);
-
-        if(typeAmount.find(pokemon.Type) == typeAmount.end())
-            typeAmount[pokemon.Type] = 1;
-        else
-            typeAmount[pokemon.Type]++;
+        typeAmount[pokemon.Type]++;
     }
 
     std::cout << "Cantidad de Pokemons por tipo" << std::endl;
