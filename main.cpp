@@ -63,8 +63,45 @@ void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
         char type = (*it).first;
         int amount = (*it).second;
         std::cout << "\tTipo: " << type << " - Cantidad: " << amount << std::endl;
+
     }
 }
+
+
+//Es el punto 3 en proceso
+/*
+void ShowPromedioByType(std::vector<Pokemontype> & pokemonVector)
+{
+    std::cout << "Promedio de nivel de Pokemons por cada tipo:" << std::endl;
+    for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
+    {
+        int t=0;
+        int tl=0;
+        int a=0;
+        int al=0;
+        int f=0;
+        int fl=0;
+        int e=0;
+        int el=0;
+        if(pokemonVector.Type=T){tl=tl+pokemonVector.Level;
+            t++;}
+        if(pokemonVector.Type=A){al=al+pokemonVector.Level;
+            a++;}
+        if(pokemonVector.type=F){fl=fl+pokemonVector.Level;
+            f++;}
+        if(pokemonVector.type=E){el=el+pokemonVector.Level;
+            e++;}
+        std::cout << "Para tierra el promedio es: " tl/t << std::endl;
+        std::cout << "Para agua el promedio es: " al/a << std::endl;
+        std::cout << "Para fuego el promedio es: " fl/f << std::endl;
+        std::cout << "Para electricos el promedio es: " el/e << std::endl;
+
+    }
+}
+*/
+
+
+
 
 int main() {
     //main menu options
