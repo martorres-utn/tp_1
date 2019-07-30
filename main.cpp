@@ -3,6 +3,7 @@
 #include "DataTypes.h"
 #include "includes/TerminalUtilities.h"
 
+//Punto 1 hecho por Marcos Torres
 void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
 {
     std::cout << "Ingresa Todos los Pokemons que quieras.\n\tIngresa: TIPO, NIVEL, NOMBRE.\n\tIngresa TIPO Q para terminar la lista de Pokemons y volver al menu..." << std::endl;
@@ -42,6 +43,7 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
     }
 }
 
+//Punto 2 hecho por Marcos Torres
 void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
 {
     std::map<char, int> typeAmount = {
@@ -68,57 +70,84 @@ void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
 }
 
 
-//Es el punto 3 en proceso
-/*
-void ShowPromedioByType(std::vector<Pokemontype> & pokemonVector)
+//Punto 3 hecho por Pedro Lopez Slevin
+// Creo variables contadores; tl es el sumador de niveles y t el de elementos
+void ShowPromedioByType(std::vector<PokemonType> & pokemonVector)
 {
-
-
     std::cout << "Promedio de nivel de Pokemons por cada tipo:" << std::endl;
+        int t = 0;
+        int tl = 0;
+        int a = 0;
+        int al = 0;
+        int f = 0;
+        int fl = 0;
+        int e = 0;
+        int el = 0;
+//recorro el vector para darle valor al sumador y contador
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        int t=0;
-        int tl=0;
-        int a=0;
-        int al=0;
-        int f=0;
-        int fl=0;
-        int e=0;
-        int el=0;
-        if(pokemonVector.Type=T){tl=tl+pokemonVector.Level;
-            t++;}
-        if(pokemonVector.Type=A){al=al+pokemonVector.Level;
-            a++;}
-        if(pokemonVector.type=F){fl=fl+pokemonVector.Level;
-            f++;}
-        if(pokemonVector.type=E){el=el+pokemonVector.Level;
-            e++;}
-        std::cout << "Para tierra el promedio es: " tl/t << std::endl;
-        std::cout << "Para agua el promedio es: " al/a << std::endl;
-        std::cout << "Para fuego el promedio es: " fl/f << std::endl;
-        std::cout << "Para electricos el promedio es: " el/e << std::endl;
+        if((*it).Type=='T')
+        {
+            tl=tl+(*it).Level;
+            t++;
+        }
+        if((*it).Type=='A'){
+            al=al+(*it).Level;
+            a++;
+        }
+        if((*it).Type=='F'){
+            fl=fl+(*it).Level;
+            f++;
+        }
+        if((*it).Type=='E'){
+            el=el+(*it).Level;
+            e++;
+        }
+    }
 
+    //el if es para que no haya indeterminaciones del tipo 0/0
+    if(t>0)
+    {
+        std::cout << "Para tierra el promedio es: " << (float)tl/(float)t << std::endl;
+    }
+    if(a>0)
+    {
+        std::cout << "Para agua el promedio es: " << (float)al/(float)a << std::endl;
+    }
+    if(f>0)
+    {
+        std::cout << "Para fuego el promedio es: " << (float)fl/(float)f << std::endl;
+    }
+    if(e>0)
+    {
+        std::cout << "Para electricos el promedio es: " << (float)el/(float)e << std::endl;
     }
 }
-*/
+
 
 
 //punto 4
-//no se que vector se esta usando, intento implementar iterators, probe con todo
-/*
-void showBiggerThan (std::vector<PokemonType> & pokemonVector)
+//recorro el vector comparando el level contra el valor fijo 500, si es mayor imprimo el nombre y el type
+void ShowBiggerThan (std::vector<PokemonType> & pokemonVector)
 {
-    PokemonType pokemon = (*it);
+    int contador = 0;
 
-    std::cout << "Cantidad de Pokemons por tipo" << std::endl;
-    for(auto it = pokemon.begin(); it != pokemon.end(); ++it)
+    std::cout << "Cantidad de Pokemons con nivel superior a 500" << std::endl;
+
+    for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-if(pokemon.Level(*it)>500){std::cout << pokemon(*it) << std::endl;}
+        if((*it).Level>500)
+        {
+        std::cout << (*it).Name  << " " << (*it).Type << std::endl;
+        contador++;
+        }
+
+        if(contador==0)
+        {
+        std::cout << "No existen pokemones con nivel mayor a 500, lo siento." << std::endl;
+        }
     }
 }
-*/
-
-
 
 
 
@@ -137,6 +166,7 @@ int main() {
             {9, "Salir de la Pokedex"}
     };
 
+    //en este vector se guardaran los pokemones en memoria con una estructura del tipo PokemonType, detallada en Datatypes.h
     std::vector<PokemonType> pokemonVector;
 
     std::cout << "Bienvenido a la Pokedex!" << std::endl;
@@ -173,9 +203,15 @@ int main() {
 
             case 3:
             {
+                ShowPromedioByType(pokemonVector);
                 break;
             }
 
+            case 4:
+            {
+                ShowBiggerThan(pokemonVector);
+                break;
+            }
             default:
             {
                 break;
