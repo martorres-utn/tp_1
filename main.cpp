@@ -72,6 +72,8 @@ void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
 /*
 void ShowPromedioByType(std::vector<Pokemontype> & pokemonVector)
 {
+
+
     std::cout << "Promedio de nivel de Pokemons por cada tipo:" << std::endl;
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
@@ -99,6 +101,24 @@ void ShowPromedioByType(std::vector<Pokemontype> & pokemonVector)
     }
 }
 */
+
+
+//punto 4
+//no se que vector se esta usando, intento implementar iterators, probe con todo
+/*
+void showBiggerThan (std::vector<PokemonType> & pokemonVector)
+{
+    PokemonType pokemon = (*it);
+
+    std::cout << "Cantidad de Pokemons por tipo" << std::endl;
+    for(auto it = pokemon.begin(); it != pokemon.end(); ++it)
+    {
+if(pokemon.Level(*it)>500){std::cout << pokemon(*it) << std::endl;}
+    }
+}
+*/
+
+
 
 
 
