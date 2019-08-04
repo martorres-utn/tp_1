@@ -21,7 +21,7 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
             TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 1000):>", "^([1-9][0-9]{0,2}$|^1000)$", "\tERROR! (ingresa un valor entero entre 1 y 1000)");
 
             //solicita valor char[10] por terminal, la expresion sera evaluada por regular expression para coincidir con una combinacion de letras mayusculas y minusculas entre a y z sin considerar caracteres especiales (longitud entre 1 y 10)
-            TerminalUtilities::getValidValue<char[10]>(newPokemon.Name, "Ingresa NOMBRE (cadena de letras, 10 max):>", "^[a-zA-Z]{1,10}$", "\tERROR! (ingresa una cadena de letras, 10 longitud max)");
+            TerminalUtilities::getValidValue<std::string>(newPokemon.Name, "Ingresa NOMBRE (cadena de letras, 10 max):>", "^[a-zA-Z]{1,10}$", "\tERROR! (ingresa una cadena de letras, 10 longitud max)");
 
             pokemonVector.push_back(newPokemon);
 
@@ -195,16 +195,17 @@ void ShowEqualTo (std::vector<PokemonType> & pokemonVector)
 //punto 6 hecho por Pedro Lopez Slevin
 void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
     //variables de cual es mayor
-    PokemonType tt;
-    PokemonType at;
-    PokemonType ft;
-    PokemonType et;
+    PokemonType tt = {'T', 0, ""};
+    PokemonType at = {'A', 0, ""};
+    PokemonType ft = {'F', 0, ""};
+    PokemonType et = {'E', 0, ""};
 
     //bools de primera vez
     bool tierra = true;
     bool agua = true;
     bool fuego = true;
     bool elec = true;
+
     //recorro el vector comparando para ver cual es el mayor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
@@ -213,14 +214,16 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             //primera vez
             if(tierra)
             {
-                tt.Name[10] = (*it).Name[10] ;
-                tt.Level = (*it).Level ;
+                tt.Name = (*it).Name;
+                tt.Level = (*it).Level;
                 tt.Type = (*it).Type;
+
+                tierra = false;
             }
             //ahora si pregunto si es mayor que el primero que se ingreso
             if(tt.Level<(*it).Level)
             {
-                tt.Name[10] = (*it).Name[10] ;
+                tt.Name = (*it).Name;
                 tt.Level = (*it).Level ;
                 tt.Type = (*it).Type;
             }
@@ -231,14 +234,16 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             //primera vez
             if(agua)
             {
-                at.Name[10] = (*it).Name[10];
+                at.Name = (*it).Name;
                 at.Level = (*it).Level;
                 at.Type = (*it).Type;
+
+                agua = false;
             }
             //ahora si pregunto si es mayor que el primero que se ingreso
             if(at.Level<(*it).Level)
             {
-                at.Name[10] = (*it).Name[10];
+                at.Name = (*it).Name;
                 at.Level = (*it).Level;
                 at.Type = (*it).Type;
             }
@@ -248,15 +253,16 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             //primera vez
             if(fuego)
             {
-                ft.Name[10] = (*it).Name[10];
+                ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
                 ft.Type = (*it).Type ;
+                fuego = false;
             }
 
             //ahora si pregunto si es mayor que el primero que se ingreso
             if(ft.Level<(*it).Level)
             {
-                ft.Name[10] = (*it).Name[10];
+                ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
                 ft.Type = (*it).Type ;
             }
@@ -266,15 +272,17 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             //primera vez
             if(elec)
             {
-                et.Name[10] = (*it).Name[10];
+                et.Name = (*it).Name;
                 et.Level = (*it).Level ;
                 et.Type = (*it).Type;
+
+                elec = false;
             }
 
             //ahora si pregunto si es mayor que el primero que se ingreso
             if(et.Level<(*it).Level)
             {
-                et.Name[10] = (*it).Name[10];
+                et.Name = (*it).Name;
                 et.Level = (*it).Level ;
                 et.Type = (*it).Type;
             }
@@ -283,10 +291,10 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
     //Imprimo los de mayor nivel segun su Type.
     std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
-    std::cout << et.Name[10] << " - " << et.Type << " - " << et.Level << std::endl;
-    std::cout << ft.Name[10] << " - " << ft.Type << " - " << ft.Level << std::endl;
-    std::cout << tt.Name[10] << " - " << tt.Type << " - " << tt.Level << std::endl;
-    std::cout << at.Name[10] << " - " << at.Type << " - " << at.Level << std::endl;
+    std::cout << et.Name << " - " << et.Type << " - " << et.Level << std::endl;
+    std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
+    std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
+    std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
 }
 
 void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
