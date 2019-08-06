@@ -301,33 +301,36 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 //punto 7 hecho por Lucas Fernandez Vincent.
 void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
-    PokemonType tt;
-    PokemonType at;
-    PokemonType ft;
-    PokemonType et;
+    //variables de cual es menor
+    PokemonType tt = {'T', 0, ""};
+    PokemonType at = {'A', 0, ""};
+    PokemonType ft = {'F', 0, ""};
+    PokemonType et = {'E', 0, ""};
 
-
+    //bools de primera vez
     bool tierra = true;
     bool agua = true;
     bool fuego = true;
     bool elec = true;
 
-
+    //recorro el vector comparando para ver cual es el menor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
         if((*it).Type=='T')
         {
-
+            //primera vez
             if(tierra)
             {
-                tt.Name[10] = (*it).Name[10] ;
-                tt.Level = (*it).Level ;
+                tt.Name = (*it).Name;
+                tt.Level = (*it).Level;
                 tt.Type = (*it).Type;
-            }
 
+                tierra = false;
+            }
+            //1 pregunto si es menor que el primero que se ingreso
             if(tt.Level>(*it).Level)
             {
-                tt.Name[10] = (*it).Name[10] ;
+                tt.Name = (*it).Name;
                 tt.Level = (*it).Level ;
                 tt.Type = (*it).Type;
             }
@@ -335,58 +338,70 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
         if((*it).Type=='A')
         {
+            //primera vez
             if(agua)
             {
-                at.Name[10] = (*it).Name[10];
+                at.Name = (*it).Name;
                 at.Level = (*it).Level;
                 at.Type = (*it).Type;
+
+                agua = false;
             }
+            //pregunto si es menor que el primero que se ingreso
             if(at.Level>(*it).Level)
             {
-                at.Name[10] = (*it).Name[10];
+                at.Name = (*it).Name;
                 at.Level = (*it).Level;
                 at.Type = (*it).Type;
             }
         }
         if((*it).Type=='F')
         {
+            //primera vez
             if(fuego)
             {
-                ft.Name[10] = (*it).Name[10];
+                ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
                 ft.Type = (*it).Type ;
+                fuego = false;
             }
 
+            //pregunto si es menor que el primero que se ingreso
             if(ft.Level>(*it).Level)
             {
-                ft.Name[10] = (*it).Name[10];
+                ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
                 ft.Type = (*it).Type ;
             }
         }
         if((*it).Type=='E')
         {
+            //primera vez
             if(elec)
             {
-                et.Name[10] = (*it).Name[10];
+                et.Name = (*it).Name;
                 et.Level = (*it).Level ;
                 et.Type = (*it).Type;
+
+                elec = false;
             }
 
+            //pregunto si es menor que el primero que se ingreso
             if(et.Level>(*it).Level)
             {
-                et.Name[10] = (*it).Name[10];
+                et.Name = (*it).Name;
                 et.Level = (*it).Level ;
                 et.Type = (*it).Type;
             }
         }
     }
 
+    //Imprimo los de menor nivel segun su Type.
     std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
-    std::cout << et.Name[10] << " - " << et.Type << " - " << et.Level << std::endl;
-    std::cout << ft.Name[10] << " - " << ft.Type << " - " << ft.Level << std::endl;
-    std::cout << tt.Name[10] << " - " << tt.Type << " - " << tt.Level << std::endl;
-    std::cout << at.Name[10] << " - " << at.Type << " - " << at.Level << std::endl;
+    std::cout << et.Name << " - " << et.Type << " - " << et.Level << std::endl;
+    std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
+    std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
+    std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
 }
 
 
