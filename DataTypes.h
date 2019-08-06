@@ -9,7 +9,7 @@ struct PokemonType
 {
     char Type;
     int Level;
-    char Name[10];
+    std::string Name;
 };
 
 #endif //TP_1_DATATYPES_H
