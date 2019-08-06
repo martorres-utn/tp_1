@@ -289,9 +289,98 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
     std::cout << at.Name[10] << " - " << at.Type << " - " << at.Level << std::endl;
 }
 
+
+//punto 7 hecho por Lucas Fernandez Vincent.
 void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
+    PokemonType tt;
+    PokemonType at;
+    PokemonType ft;
+    PokemonType et;
+
+
+    bool tierra = true;
+    bool agua = true;
+    bool fuego = true;
+    bool elec = true;
+
+
+    for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
+    {
+        if((*it).Type=='T')
+        {
+
+            if(tierra)
+            {
+                tt.Name[10] = (*it).Name[10] ;
+                tt.Level = (*it).Level ;
+                tt.Type = (*it).Type;
+            }
+
+            if(tt.Level>(*it).Level)
+            {
+                tt.Name[10] = (*it).Name[10] ;
+                tt.Level = (*it).Level ;
+                tt.Type = (*it).Type;
+            }
+        }
+
+        if((*it).Type=='A')
+        {
+            if(agua)
+            {
+                at.Name[10] = (*it).Name[10];
+                at.Level = (*it).Level;
+                at.Type = (*it).Type;
+            }
+            if(at.Level>(*it).Level)
+            {
+                at.Name[10] = (*it).Name[10];
+                at.Level = (*it).Level;
+                at.Type = (*it).Type;
+            }
+        }
+        if((*it).Type=='F')
+        {
+            if(fuego)
+            {
+                ft.Name[10] = (*it).Name[10];
+                ft.Level = (*it).Level ;
+                ft.Type = (*it).Type ;
+            }
+
+            if(ft.Level>(*it).Level)
+            {
+                ft.Name[10] = (*it).Name[10];
+                ft.Level = (*it).Level ;
+                ft.Type = (*it).Type ;
+            }
+        }
+        if((*it).Type=='E')
+        {
+            if(elec)
+            {
+                et.Name[10] = (*it).Name[10];
+                et.Level = (*it).Level ;
+                et.Type = (*it).Type;
+            }
+
+            if(et.Level>(*it).Level)
+            {
+                et.Name[10] = (*it).Name[10];
+                et.Level = (*it).Level ;
+                et.Type = (*it).Type;
+            }
+        }
+    }
+
+    std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
+    std::cout << et.Name[10] << " - " << et.Type << " - " << et.Level << std::endl;
+    std::cout << ft.Name[10] << " - " << ft.Type << " - " << ft.Level << std::endl;
+    std::cout << tt.Name[10] << " - " << tt.Type << " - " << tt.Level << std::endl;
+    std::cout << at.Name[10] << " - " << at.Type << " - " << at.Level << std::endl;
 }
+
 
 
 
