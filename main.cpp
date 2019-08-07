@@ -161,11 +161,6 @@ void showSmallerThan (std::vector<PokemonType> & pokemonVector)
         {
             contador++;
         }
-
-        if(contador == 0)
-        {
-            contador = 0;
-        }
     }
     std::cout << "Cantidad de Pokemons con nivel menor a 500: " << contador << std::endl;
 
@@ -181,11 +176,6 @@ void showEqualTo (std::vector<PokemonType> & pokemonVector)
         if((*it).Level == 500)
         {
             contador++;
-        }
-
-        if(contador == 0)
-        {
-            contador = 0;
         }
     }
     std::cout << "Cantidad de Pokemons con nivel igual a 500: " << contador << std::endl;
