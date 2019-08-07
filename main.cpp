@@ -71,7 +71,7 @@ void showAmountOfPokemonsByType(std::vector<PokemonType> & pokemonVector)
 
 //Punto 3 hecho por Pedro Lopez Slevin
 // Creo variables contadores; tl es el sumador de niveles y t el de elementos
-void ShowPromedioByType(std::vector<PokemonType> & pokemonVector)
+void showPromedioByType(std::vector<PokemonType> & pokemonVector)
 {
     std::cout << "Promedio de nivel de Pokemons por cada tipo:" << std::endl;
         int t = 0;
@@ -85,42 +85,42 @@ void ShowPromedioByType(std::vector<PokemonType> & pokemonVector)
 //recorro el vector para darle valor al sumador y contador
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Type=='T')
+        if((*it).Type == 'T')
         {
-            tl=tl+(*it).Level;
+            tl = tl + (*it).Level;
             t++;
         }
-        if((*it).Type=='A'){
-            al=al+(*it).Level;
+        if((*it).Type == 'A'){
+            al = al + (*it).Level;
             a++;
         }
-        if((*it).Type=='F'){
-            fl=fl+(*it).Level;
+        if((*it).Type == 'F'){
+            fl = fl + (*it).Level;
             f++;
         }
-        if((*it).Type=='E'){
-            el=el+(*it).Level;
+        if((*it).Type == 'E'){
+            el = el + (*it).Level;
             e++;
         }
     }
 
     //el if es para que no haya indeterminaciones del tipo 0/0
-    if(t>0)
+    if(t > 0)
     {
         std::cout << "Para tierra el promedio es: " << (float)tl/(float)t << std::endl;
     }
 
-    if(a>0)
+    if(a > 0)
     {
         std::cout << "Para agua el promedio es: " << (float)al/(float)a << std::endl;
     }
 
-    if(f>0)
+    if(f > 0)
     {
         std::cout << "Para fuego el promedio es: " << (float)fl/(float)f << std::endl;
     }
 
-    if(e>0)
+    if(e > 0)
     {
         std::cout << "Para electricos el promedio es: " << (float)el/(float)e << std::endl;
     }
@@ -128,7 +128,7 @@ void ShowPromedioByType(std::vector<PokemonType> & pokemonVector)
 
 //punto 4 hecho por Pedro Lopez Slevin
 //recorro el vector comparando el level contra el valor fijo 500, si es mayor imprimo el nombre y el type
-void ShowBiggerThan (std::vector<PokemonType> & pokemonVector)
+void showBiggerThan (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
 
@@ -136,13 +136,13 @@ void ShowBiggerThan (std::vector<PokemonType> & pokemonVector)
 
         for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
         {
-            if((*it).Level>500)
+            if((*it).Level > 500)
             {
                 contador++;
                 std::cout << (*it).Name  << " " << (*it).Type << std::endl;
             }
 
-            if(contador==0)
+            if(contador == 0)
             {
                 std::cout << "No existen pokemones con nivel mayor a 500, lo siento." << std::endl;
             }
@@ -151,51 +151,48 @@ void ShowBiggerThan (std::vector<PokemonType> & pokemonVector)
 
 
 //punto 5 hecho por Florencia Leggio.
-void ShowSmallestThan (std::vector<PokemonType> & pokemonVector)
+void showSmallerThan (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
 
-    std::cout << "Cantidad de Pokemons con nivel menor a 500" << std::endl;
-
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Level<500)
-        { contador++;
-            std::cout << (*it).Name  << " " << (*it).Type << std::endl;
+        if((*it).Level < 500)
+        {
+            contador++;
         }
 
-        if(contador==0)
-
+        if(contador == 0)
         {
-            std::cout << "No existen pokemones con nivel menor a 500, lo siento." << std::endl;
+            contador = 0;
         }
     }
+    std::cout << "Cantidad de Pokemons con nivel menor a 500: " << contador << std::endl;
+
 }
 
 // punto 6 hecho por Florencia Leggio.
-void ShowEqualTo (std::vector<PokemonType> & pokemonVector)
+void showEqualTo (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
 
-    std::cout << "Cantidad de Pokemons con nivel igual a 500" << std::endl;
-
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Level==500)
-        { contador++;
-            std::cout << (*it).Name  << " " << (*it).Type << std::endl;
+        if((*it).Level == 500)
+        {
+            contador++;
         }
 
-        if(contador==0)
-
+        if(contador == 0)
         {
-            std::cout << "No existen pokemones con nivel igual a 500, lo siento." << std::endl;
+            contador = 0;
         }
     }
+    std::cout << "Cantidad de Pokemons con nivel igual a 500: " << contador << std::endl;
 }
 
 //punto 7 hecho por Pedro Lopez Slevin
-void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
+void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
     //variables de cual es mayor
     PokemonType tt = {'T', 0, ""};
     PokemonType at = {'A', 0, ""};
@@ -211,7 +208,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
     //recorro el vector comparando para ver cual es el mayor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Type=='T')
+        if((*it).Type == 'T')
         {
             //primera vez
             if(tierra)
@@ -223,7 +220,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
                 tierra = false;
             }
             //ahora si pregunto si es mayor que el primero que se ingreso
-            if(tt.Level<(*it).Level)
+            if(tt.Level < (*it).Level)
             {
                 tt.Name = (*it).Name;
                 tt.Level = (*it).Level ;
@@ -231,7 +228,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             }
         }
 
-        if((*it).Type=='A')
+        if((*it).Type == 'A')
         {
             //primera vez
             if(agua)
@@ -243,7 +240,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
                 agua = false;
             }
             //ahora si pregunto si es mayor que el primero que se ingreso
-            if(at.Level<(*it).Level)
+            if(at.Level < (*it).Level)
             {
                 at.Name = (*it).Name;
                 at.Level = (*it).Level;
@@ -251,7 +248,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             }
         }
 
-        if((*it).Type=='F')
+        if((*it).Type == 'F')
         {
             //primera vez
             if(fuego)
@@ -263,7 +260,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             }
 
             //ahora si pregunto si es mayor que el primero que se ingreso
-            if(ft.Level<(*it).Level)
+            if(ft.Level < (*it).Level)
             {
                 ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
@@ -271,7 +268,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             }
         }
 
-        if((*it).Type=='E')
+        if((*it).Type == 'E')
         {
             //primera vez
             if(elec)
@@ -284,7 +281,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
             }
 
             //ahora si pregunto si es mayor que el primero que se ingreso
-            if(et.Level<(*it).Level)
+            if(et.Level < (*it).Level)
             {
                 et.Name = (*it).Name;
                 et.Level = (*it).Level ;
@@ -337,7 +334,7 @@ void ShowStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
 
 //punto 8 hecho por Lucas Fernandez Vincent.
-void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
+void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
     //variables de cual es menor
     PokemonType tt = {'T', 0, ""};
@@ -354,7 +351,7 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
     //recorro el vector comparando para ver cual es el menor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Type=='T')
+        if((*it).Type == 'T')
         {
             //primera vez
             if(tierra)
@@ -366,7 +363,7 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
                 tierra = false;
             }
             //1 pregunto si es menor que el primero que se ingreso
-            if(tt.Level>(*it).Level)
+            if(tt.Level > (*it).Level)
             {
                 tt.Name = (*it).Name;
                 tt.Level = (*it).Level ;
@@ -374,7 +371,7 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
             }
         }
 
-        if((*it).Type=='A')
+        if((*it).Type == 'A')
         {
             //primera vez
             if(agua)
@@ -386,14 +383,14 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
                 agua = false;
             }
             //pregunto si es menor que el primero que se ingreso
-            if(at.Level>(*it).Level)
+            if(at.Level > (*it).Level)
             {
                 at.Name = (*it).Name;
                 at.Level = (*it).Level;
                 at.Type = (*it).Type;
             }
         }
-        if((*it).Type=='F')
+        if((*it).Type == 'F')
         {
             //primera vez
             if(fuego)
@@ -405,14 +402,14 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
             }
 
             //pregunto si es menor que el primero que se ingreso
-            if(ft.Level>(*it).Level)
+            if(ft.Level > (*it).Level)
             {
                 ft.Name = (*it).Name;
                 ft.Level = (*it).Level ;
                 ft.Type = (*it).Type ;
             }
         }
-        if((*it).Type=='E')
+        if((*it).Type == 'E')
         {
             //primera vez
             if(elec)
@@ -425,7 +422,7 @@ void ShowWeakestPokemon(std::vector<PokemonType> & pokemonVector){
             }
 
             //pregunto si es menor que el primero que se ingreso
-            if(et.Level>(*it).Level)
+            if(et.Level > (*it).Level)
             {
                 et.Name = (*it).Name;
                 et.Level = (*it).Level ;
@@ -502,7 +499,7 @@ int main() {
 
             case 3:
             {
-                ShowPromedioByType(pokemonVector);
+                showPromedioByType(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
@@ -510,7 +507,7 @@ int main() {
 
             case 4:
             {
-                ShowBiggerThan(pokemonVector);
+                showBiggerThan(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
@@ -518,7 +515,7 @@ int main() {
 
             case 5:
             {
-                ShowSmallestThan(pokemonVector);
+                showSmallerThan(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
@@ -526,7 +523,7 @@ int main() {
 
             case 6:
             {
-                ShowEqualTo(pokemonVector);
+                showEqualTo(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
@@ -534,7 +531,7 @@ int main() {
 
             case 7:
             {
-                ShowStrongestPokemon(pokemonVector);
+                showStrongestPokemon(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
@@ -542,7 +539,7 @@ int main() {
 
             case 8:
             {
-                ShowWeakestPokemon(pokemonVector);
+                showWeakestPokemon(pokemonVector);
                 std::system("pause");
                 std::system("cls");
                 break;
