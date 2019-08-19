@@ -105,24 +105,41 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
     }
 
     //el if es para que no haya indeterminaciones del tipo 0/0
+    // en el caso de ser 0, se notifica al usuario que no posee pokemones de ese tipo.
     if(t > 0)
     {
         std::cout << "Para tierra el promedio es: " << (float)tl/(float)t << std::endl;
+    }
+    else
+    {
+        std::cout << "No posees pokemons de tierra para realizar un promedio, lo siento." << std::endl;
     }
 
     if(a > 0)
     {
         std::cout << "Para agua el promedio es: " << (float)al/(float)a << std::endl;
     }
+    else
+    {
+        std::cout << "No posees pokemons de agua para realizar un promedio, lo siento." << std::endl;
+    }
 
     if(f > 0)
     {
         std::cout << "Para fuego el promedio es: " << (float)fl/(float)f << std::endl;
     }
+    else
+    {
+        std::cout << "No posees pokemons de fuego para realizar un promedio, lo siento." << std::endl;
+    }
 
     if(e > 0)
     {
         std::cout << "Para electricos el promedio es: " << (float)el/(float)e << std::endl;
+    }
+    else
+    {
+        std::cout << "No posees pokemons electricos para realizar un promedio, lo siento." << std::endl;
     }
 }
 
@@ -131,22 +148,32 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
 void showBiggerThan (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
+    bool prim = true;
 
-    std::cout << "Cantidad de Pokemons con nivel superior a 500" << std::endl;
 
         for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
         {
             if((*it).Level > 500)
             {
                 contador++;
-                std::cout << (*it).Name  << " " << (*it).Type << std::endl;
-            }
 
-            if(contador == 0)
-            {
-                std::cout << "No existen pokemones con nivel mayor a 500, lo siento." << std::endl;
+                if(prim)
+                {
+                    std::cout << "Nombres de Pokemons con nivel superior a 500" << std::endl;
+                    std::cout << "Nombre"  << " - " << " Tipo " << " - " << " Nivel " << std::endl;
+                    prim=false;
+                }
+                std::cout << (*it).Name  << " " << (*it).Type << " " << (*it).Level << std::endl;
             }
         }
+    if(contador == 0)
+    {
+        std::cout << "No posees pokemons con nivel superior a 500, lo siento." << std::endl;
+    }
+    else
+    {
+        std::cout << "Posees " << contador << " Pokemons con nivel superior a 500. Bien hecho!"<< std::endl;
+    }
 }
 
 
@@ -154,15 +181,34 @@ void showBiggerThan (std::vector<PokemonType> & pokemonVector)
 void showSmallerThan (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
+    bool prim = true;
 
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
         if((*it).Level < 500)
         {
             contador++;
+
+            if(prim)
+            {
+                std::cout << "Nombres de Pokemons con nivel inferior a 500" << std::endl;
+                std::cout << "Nombre"  << " - " << " Tipo " << " - " << " Nivel " << std::endl;
+                prim=false;
+            }
+
+            std::cout << (*it).Name  << " " << (*it).Type << " " << (*it).Level << std::endl;
         }
     }
-    std::cout << "Cantidad de Pokemons con nivel menor a 500: " << contador << std::endl;
+
+    if(contador == 0)
+    {
+        std::cout << "No posees pokemons con nivel inferior a 500, lo siento." << std::endl;
+    }
+    else
+    {
+        std::cout << "Posees " << contador << " Pokemons con nivel inferior a 500. " << std::endl;
+    }
+
 
 }
 
@@ -170,24 +216,45 @@ void showSmallerThan (std::vector<PokemonType> & pokemonVector)
 void showEqualTo (std::vector<PokemonType> & pokemonVector)
 {
     int contador = 0;
+    bool prim = true;
 
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
         if((*it).Level == 500)
         {
             contador++;
+
+            if(prim)
+            {
+                std::cout << "Nombres de Pokemons con nivel igual a 500" << std::endl;
+                std::cout << "Nombre"  << " - " << " Tipo " <<  std::endl;
+                prim=false;
+            }
+
+            std::cout << (*it).Name  << " " << (*it).Type << std::endl;
+
         }
     }
-    std::cout << "Cantidad de Pokemons con nivel igual a 500: " << contador << std::endl;
+
+    if(contador == 0)
+    {
+        std::cout << "No posees pokemons con nivel igual a 500, lo siento." << std::endl;
+    }
+    else
+    {
+        std::cout << "Cantidad de Pokemons con nivel igual a 500: " << contador << std::endl;
+    }
+
 }
 
 //punto 7 hecho por Pedro Lopez Slevin
 void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
+
     //variables de cual es mayor
-    PokemonType tt = {'T', 0, ""};
-    PokemonType at = {'A', 0, ""};
-    PokemonType ft = {'F', 0, ""};
-    PokemonType et = {'E', 0, ""};
+    PokemonType tt; //= {'T', 0, ""};
+    PokemonType at; //= {'A', 0, ""};
+    PokemonType ft; //= {'F', 0, ""};
+    PokemonType et; //= {'E', 0, ""};
 
     //bools de primera vez
     bool tierra = true;
@@ -198,87 +265,96 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
     //recorro el vector comparando para ver cual es el mayor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Type == 'T')
+        //+ performance cambiando ifs por switchs para que el programa no haga comparaciones innecesarias :D
+        switch((*it).Type)
         {
-            //primera vez
-            if(tierra)
+            case 'T':
             {
-                tt.Name = (*it).Name;
-                tt.Level = (*it).Level;
-                tt.Type = (*it).Type;
+                //primera vez
+                if (tierra)
+                {
+                    tt.Name = (*it).Name;
+                    tt.Level = (*it).Level;
+                    tt.Type = (*it).Type;
 
-                tierra = false;
+                    tierra = false;
+                }
+
+                //ahora si pregunto si es mayor que el primero que se ingreso
+                if (tt.Level < (*it).Level)
+                {
+                    tt.Name = (*it).Name;
+                    tt.Level = (*it).Level;
+                    tt.Type = (*it).Type;
+                }
+                break;
             }
-            //ahora si pregunto si es mayor que el primero que se ingreso
-            if(tt.Level < (*it).Level)
+
+            case 'A':
             {
-                tt.Name = (*it).Name;
-                tt.Level = (*it).Level ;
-                tt.Type = (*it).Type;
+                //primera vez
+                if (agua)
+                {
+                    at.Name = (*it).Name;
+                    at.Level = (*it).Level;
+                    at.Type = (*it).Type;
+
+                    agua = false;
+                }
+
+                //ahora si pregunto si es mayor que el primero que se ingreso
+                if (at.Level < (*it).Level)
+                {
+                    at.Name = (*it).Name;
+                    at.Level = (*it).Level;
+                    at.Type = (*it).Type;
+                }
+                break;
+            }
+
+            case 'F':
+            {
+                //primera vez
+                if (fuego)
+                {
+                    ft.Name = (*it).Name;
+                    ft.Level = (*it).Level;
+                    ft.Type = (*it).Type;
+                    fuego = false;
+                }
+
+                //ahora si pregunto si es mayor que el primero que se ingreso
+                if (ft.Level < (*it).Level)
+                {
+                    ft.Name = (*it).Name;
+                    ft.Level = (*it).Level;
+                    ft.Type = (*it).Type;
+                }
+                break;
+            }
+
+            case 'E':
+            {
+                //primera vez
+                if (elec)
+                {
+                    et.Name = (*it).Name;
+                    et.Level = (*it).Level;
+                    et.Type = (*it).Type;
+
+                    elec = false;
+                }
+
+                //ahora si pregunto si es mayor que el primero que se ingreso
+                if (et.Level < (*it).Level)
+                {
+                    et.Name = (*it).Name;
+                    et.Level = (*it).Level;
+                    et.Type = (*it).Type;
+                }
+                break;
             }
         }
-
-        if((*it).Type == 'A')
-        {
-            //primera vez
-            if(agua)
-            {
-                at.Name = (*it).Name;
-                at.Level = (*it).Level;
-                at.Type = (*it).Type;
-
-                agua = false;
-            }
-            //ahora si pregunto si es mayor que el primero que se ingreso
-            if(at.Level < (*it).Level)
-            {
-                at.Name = (*it).Name;
-                at.Level = (*it).Level;
-                at.Type = (*it).Type;
-            }
-        }
-
-        if((*it).Type == 'F')
-        {
-            //primera vez
-            if(fuego)
-            {
-                ft.Name = (*it).Name;
-                ft.Level = (*it).Level ;
-                ft.Type = (*it).Type ;
-                fuego = false;
-            }
-
-            //ahora si pregunto si es mayor que el primero que se ingreso
-            if(ft.Level < (*it).Level)
-            {
-                ft.Name = (*it).Name;
-                ft.Level = (*it).Level ;
-                ft.Type = (*it).Type ;
-            }
-        }
-
-        if((*it).Type == 'E')
-        {
-            //primera vez
-            if(elec)
-            {
-                et.Name = (*it).Name;
-                et.Level = (*it).Level ;
-                et.Type = (*it).Type;
-
-                elec = false;
-            }
-
-            //ahora si pregunto si es mayor que el primero que se ingreso
-            if(et.Level < (*it).Level)
-            {
-                et.Name = (*it).Name;
-                et.Level = (*it).Level ;
-                et.Type = (*it).Type;
-            }
-        }
-
     }
 
     //Imprimo los de mayor nivel segun su Type.
@@ -327,10 +403,10 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
     //variables de cual es menor
-    PokemonType tt = {'T', 0, ""};
-    PokemonType at = {'A', 0, ""};
-    PokemonType ft = {'F', 0, ""};
-    PokemonType et = {'E', 0, ""};
+    PokemonType tt; //= {'T', 0, ""};
+    PokemonType at; //= {'A', 0, ""};
+    PokemonType ft; //= {'F', 0, ""};
+    PokemonType et; //= {'E', 0, ""};
 
     //bools de primera vez
     bool tierra = true;
@@ -341,104 +417,149 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
     //recorro el vector comparando para ver cual es el menor Level entre cada Type
     for(auto it = pokemonVector.begin(); it != pokemonVector.end(); ++it)
     {
-        if((*it).Type == 'T')
+        switch((*it).Type)
         {
-            //primera vez
-            if(tierra)
+            case 'T':
             {
-                tt.Name = (*it).Name;
-                tt.Level = (*it).Level;
-                tt.Type = (*it).Type;
+                //primera vez
+                if (tierra) {
+                    tt.Name = (*it).Name;
+                    tt.Level = (*it).Level;
+                    tt.Type = (*it).Type;
 
-                tierra = false;
-            }
-            //1 pregunto si es menor que el primero que se ingreso
-            if(tt.Level > (*it).Level)
-            {
-                tt.Name = (*it).Name;
-                tt.Level = (*it).Level ;
-                tt.Type = (*it).Type;
-            }
-        }
-
-        if((*it).Type == 'A')
-        {
-            //primera vez
-            if(agua)
-            {
-                at.Name = (*it).Name;
-                at.Level = (*it).Level;
-                at.Type = (*it).Type;
-
-                agua = false;
-            }
-            //pregunto si es menor que el primero que se ingreso
-            if(at.Level > (*it).Level)
-            {
-                at.Name = (*it).Name;
-                at.Level = (*it).Level;
-                at.Type = (*it).Type;
-            }
-        }
-        if((*it).Type == 'F')
-        {
-            //primera vez
-            if(fuego)
-            {
-                ft.Name = (*it).Name;
-                ft.Level = (*it).Level ;
-                ft.Type = (*it).Type ;
-                fuego = false;
+                    tierra = false;
+                }
+                //1 pregunto si es menor que el primero que se ingreso
+                if (tt.Level > (*it).Level) {
+                    tt.Name = (*it).Name;
+                    tt.Level = (*it).Level;
+                    tt.Type = (*it).Type;
+                }
+                break;
             }
 
-            //pregunto si es menor que el primero que se ingreso
-            if(ft.Level > (*it).Level)
+            case 'A':
             {
-                ft.Name = (*it).Name;
-                ft.Level = (*it).Level ;
-                ft.Type = (*it).Type ;
-            }
-        }
-        if((*it).Type == 'E')
-        {
-            //primera vez
-            if(elec)
-            {
-                et.Name = (*it).Name;
-                et.Level = (*it).Level ;
-                et.Type = (*it).Type;
+                //primera vez
+                if(agua)
+                {
+                    at.Name = (*it).Name;
+                    at.Level = (*it).Level;
+                    at.Type = (*it).Type;
 
-                elec = false;
+                    agua = false;
+                }
+                //pregunto si es menor que el primero que se ingreso
+                if(at.Level > (*it).Level)
+                {
+                    at.Name = (*it).Name;
+                    at.Level = (*it).Level;
+                    at.Type = (*it).Type;
+                }
+                break;
             }
 
-            //pregunto si es menor que el primero que se ingreso
-            if(et.Level > (*it).Level)
+            case 'F':
             {
-                et.Name = (*it).Name;
-                et.Level = (*it).Level ;
-                et.Type = (*it).Type;
+                //primera vez
+                if(fuego)
+                {
+                    ft.Name = (*it).Name;
+                    ft.Level = (*it).Level ;
+                    ft.Type = (*it).Type ;
+                    fuego = false;
+                }
+
+                //pregunto si es menor que el primero que se ingreso
+                if(ft.Level > (*it).Level)
+                {
+                    ft.Name = (*it).Name;
+                    ft.Level = (*it).Level ;
+                    ft.Type = (*it).Type ;
+                }
+                break;
+            }
+
+            case 'E':
+            {
+                //primera vez
+                if(elec)
+                {
+                    et.Name = (*it).Name;
+                    et.Level = (*it).Level ;
+                    et.Type = (*it).Type;
+
+                    elec = false;
+                }
+
+                //pregunto si es menor que el primero que se ingreso
+                if(et.Level > (*it).Level)
+                {
+                    et.Name = (*it).Name;
+                    et.Level = (*it).Level ;
+                    et.Type = (*it).Type;
+                }
+                break;
             }
         }
     }
 
-    //Imprimo los de menor nivel segun su Type.
+   /*
+    * Si no hay ninguno de tal tipo arroja un template vacio Lucas
+    * //Imprimo los de menor nivel segun su Type.
     std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
     std::cout << et.Name << " - " << et.Type << " - " << et.Level << std::endl;
     std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
     std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
     std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
+*/
+    //Imprimo los de menor nivel segun su Type.
+    //Tambien valido si realmente hay registrados de ese tipo preguntando por el bool de cada type
+    std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
+    if(elec)
+    {
+        std::cout << "No posee Pokemones Electricos." << std::endl;
+    }
+    else
+    {
+        std::cout << et.Name << " - " << et.Type << " - " << et.Level << std::endl;
+    }
+
+    if(fuego)
+    {
+        std::cout << "No posee Pokemones de Fuego." << std::endl;
+    }
+    else
+    {
+        std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;;
+    }
+
+    if(tierra)
+    {
+        std::cout << "No posee Pokemones de Tierra." << std::endl;
+    }
+    else
+    {
+        std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
+    }
+
+    if(agua)
+    {
+        std::cout << "No posee Pokemones de Agua." << std::endl;
+    }
+    else
+    {
+        std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
+    }
+
 }
-
-
-
-
 
 
 int main() {
     //main menu options
     std::map<int, std::string> mapOptions = {
-            {1, "Registrar Pokemons"},
-            {2, "Consultar cantidad de Pokemons por TIPO"},
+            {1, "Registrar Pokemones"},
+            {2, "Consultar cantidad de Pokemones por TIPO"},
             {3, "Consultar promedio de NIVEL de Pokemons por cada TIPO"},
             {4, "Consultar cantidad de Pokemons con NIVEL mayor a 500"},
             {5, "Consultar cantidad de Pokemons con NIVEL menor a 500"},
@@ -487,7 +608,7 @@ int main() {
                 break;
             }
 
-            case 3:
+            case 3: //MOSTRAR PROMEDIO POR TIPO
             {
                 showPromedioByType(pokemonVector);
                 std::system("pause");
@@ -495,7 +616,7 @@ int main() {
                 break;
             }
 
-            case 4:
+            case 4: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL MAYOR A 500
             {
                 showBiggerThan(pokemonVector);
                 std::system("pause");
@@ -503,7 +624,7 @@ int main() {
                 break;
             }
 
-            case 5:
+            case 5: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL MENOR A 500
             {
                 showSmallerThan(pokemonVector);
                 std::system("pause");
@@ -511,7 +632,7 @@ int main() {
                 break;
             }
 
-            case 6:
+            case 6: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL IGUAL A 500
             {
                 showEqualTo(pokemonVector);
                 std::system("pause");
@@ -519,7 +640,7 @@ int main() {
                 break;
             }
 
-            case 7:
+            case 7: //MOSTRAR EL POKEMON MAS PODEROSO SEGUN NIVEL FILTRADO POR TIPO
             {
                 showStrongestPokemon(pokemonVector);
                 std::system("pause");
@@ -527,7 +648,7 @@ int main() {
                 break;
             }
 
-            case 8:
+            case 8: //MOSTRAR EL POKEMON MAS DEBIL SEGUN EL NIVEL FILTRADO POR TIPO
             {
                 showWeakestPokemon(pokemonVector);
                 std::system("pause");
@@ -535,9 +656,18 @@ int main() {
                 break;
             }
 
-            default:
+            case 9: //SALIR DEL POKEDEX
             {
                 std::cout << "Hasta luego!" << std::endl;
+                std::cout << "" << std::endl;
+                std::cout << "" << std::endl;
+                std::system("pause");
+                break;
+            }
+
+            default: //VALOR ERRONEO
+            {
+                std::cout << "Ingrese una opcion existente por favor." << std::endl;
                 std::cout << "" << std::endl;
                 std::cout << "" << std::endl;
                 std::system("pause");
