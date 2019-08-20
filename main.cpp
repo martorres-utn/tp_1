@@ -32,13 +32,14 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
 
     }while(newPokemon.Type != 'Q');
 
-    std::cout << "------------------------------------------------------" << std::endl;
-
-    //printing just for debug
-    std::cout << "Pokemons ingresados:" << std::endl;
-    for(auto it = pokemonVector.begin(); it != pokemonVector.end() ; ++it)
+    if(pokemonVector.size() > 0)
     {
-        std::cout << "\t - TIPO: " << (*it).Type << " , NIVEL: " << (*it).Level << " , NOMBRE: " << (*it).Name << std::endl;
+        std::cout << "------------------------------------------------------" << std::endl;
+        std::cout << "Pokemons ingresados:" << std::endl;
+        for(auto it = pokemonVector.begin(); it != pokemonVector.end() ; ++it)
+        {
+            std::cout << "\t - TIPO: " << (*it).Type << " , NIVEL: " << (*it).Level << " , NOMBRE: " << (*it).Name << std::endl;
+        }
     }
 }
 
@@ -579,7 +580,7 @@ int main() {
 
     while(selectedOption != 9)
     {
-        std::cout << "Selecciona una opcion." << std::endl;
+        std::cout << "[Menu principal] - seleccione una opcion." << std::endl;
 
         //print available options using mapOptions
         for(auto it = mapOptions.begin(); it != mapOptions.end(); ++it)
@@ -588,92 +589,79 @@ int main() {
         }
 
         //solicita valor entero por terminal, la expresion sera evaluada por la regular expression del 3er parametro.
-        TerminalUtilities::getValidValue<int>(selectedOption, "Ingresa tu opcion:>", "^\\d{1}$", "\tERROR! (ingresa un numero entero entre 1 y 9)");
+        TerminalUtilities::getValidValue<int>(selectedOption, "Ingresa tu opcion:>", "^[1-9]$", "\tERROR! (ingresa un numero entero entre 1 y 9)");
+
+        //imprimo en pantalla la opción seleccionada por el usuario en caso de que sea valida
+
+        bool isValidOption = mapOptions.find(selectedOption) != mapOptions.end();
+        if(isValidOption)
+            std::cout << "[" << selectedOption << " - " << mapOptions[selectedOption].c_str() << "]" << std::endl;
 
         switch(selectedOption)
         {
             case 1: //REGISTRAR POKEMONS
             {
                 registerNewPokemons(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 2: //CANTIDAD DE POKEMONS POR TIPO
             {
                 showAmountOfPokemonsByType(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 3: //MOSTRAR PROMEDIO POR TIPO
             {
                 showPromedioByType(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 4: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL MAYOR A 500
             {
                 showBiggerThan(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 5: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL MENOR A 500
             {
                 showSmallerThan(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 6: //MOSTRAR CANTIDAD DE POKEMONS CON NIVEL IGUAL A 500
             {
                 showEqualTo(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 7: //MOSTRAR EL POKEMON MAS PODEROSO SEGUN NIVEL FILTRADO POR TIPO
             {
                 showStrongestPokemon(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 8: //MOSTRAR EL POKEMON MAS DEBIL SEGUN EL NIVEL FILTRADO POR TIPO
             {
                 showWeakestPokemon(pokemonVector);
-                std::system("pause");
-                std::system("cls");
                 break;
             }
 
             case 9: //SALIR DEL POKEDEX
             {
                 std::cout << "Hasta luego!" << std::endl;
-                std::cout << "" << std::endl;
-                std::cout << "" << std::endl;
-                std::system("pause");
-                break;
-            }
-
-            default: //VALOR ERRONEO
-            {
-                std::cout << "Ingrese una opcion existente por favor." << std::endl;
-                std::cout << "" << std::endl;
-                std::cout << "" << std::endl;
-                std::system("pause");
                 break;
             }
         }
+
+        if(isValidOption)
+        {
+            //muestra mensaje para cualquier opcion que no sea la salida
+            if(selectedOption != 9)
+                std::cout << "Presione cualquier tecla para continuar..." << std::endl;
+            std::cin.ignore();
+        }
+
     }
 
     return 0;
