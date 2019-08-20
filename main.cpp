@@ -38,7 +38,7 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
         std::cout << "Pokemons ingresados:" << std::endl;
         for(auto it = pokemonVector.begin(); it != pokemonVector.end() ; ++it)
         {
-            std::cout << "\t - TIPO: " << (*it).Type << " , NIVEL: " << (*it).Level << " , NOMBRE: " << (*it).Name << std::endl;
+            std::cout << "\t - TIPO: " << (*it).Type << " , NIVEL: " << (*it).Level << " , NOMBRE: " << (*it).Name << "." << std::endl;
         }
     }
 }
@@ -109,7 +109,7 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
     // en el caso de ser 0, se notifica al usuario que no posee pokemones de ese tipo.
     if(t > 0)
     {
-        std::cout << "Para tierra el promedio es: " << (float)tl/(float)t << std::endl;
+        std::cout << "Para tierra el promedio es: " << (float)tl/(float)t << "." << std::endl;
     }
     else
     {
@@ -118,7 +118,7 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
 
     if(a > 0)
     {
-        std::cout << "Para agua el promedio es: " << (float)al/(float)a << std::endl;
+        std::cout << "Para agua el promedio es: " << (float)al/(float)a << "." << std::endl;
     }
     else
     {
@@ -127,7 +127,7 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
 
     if(f > 0)
     {
-        std::cout << "Para fuego el promedio es: " << (float)fl/(float)f << std::endl;
+        std::cout << "Para fuego el promedio es: " << (float)fl/(float)f << "." << std::endl;
     }
     else
     {
@@ -136,7 +136,7 @@ void showPromedioByType(std::vector<PokemonType> & pokemonVector)
 
     if(e > 0)
     {
-        std::cout << "Para electricos el promedio es: " << (float)el/(float)e << std::endl;
+        std::cout << "Para electricos el promedio es: " << (float)el/(float)e << "." << std::endl;
     }
     else
     {
@@ -160,7 +160,7 @@ void showBiggerThan (std::vector<PokemonType> & pokemonVector)
 
                 if(prim)
                 {
-                    std::cout << "Nombres de Pokemons con nivel superior a 500" << std::endl;
+                    std::cout << "Nombres de Pokemons con nivel superior a 500." << std::endl;
                     std::cout << "Nombre"  << " - " << " Tipo " << " - " << " Nivel " << std::endl;
                     prim=false;
                 }
@@ -192,7 +192,7 @@ void showSmallerThan (std::vector<PokemonType> & pokemonVector)
 
             if(prim)
             {
-                std::cout << "Nombres de Pokemons con nivel inferior a 500" << std::endl;
+                std::cout << "Nombres de Pokemons con nivel inferior a 500." << std::endl;
                 std::cout << "Nombre"  << " - " << " Tipo " << " - " << " Nivel " << std::endl;
                 prim=false;
             }
@@ -207,7 +207,7 @@ void showSmallerThan (std::vector<PokemonType> & pokemonVector)
     }
     else
     {
-        std::cout << "Posees " << contador << " Pokemons con nivel inferior a 500. " << std::endl;
+        std::cout << "Posees " << contador << " Pokemons con nivel inferior a 500. Bien hecho! " << std::endl;
     }
 
 
@@ -227,7 +227,7 @@ void showEqualTo (std::vector<PokemonType> & pokemonVector)
 
             if(prim)
             {
-                std::cout << "Nombres de Pokemons con nivel igual a 500" << std::endl;
+                std::cout << "Nombres de Pokemons con nivel igual a 500." << std::endl;
                 std::cout << "Nombre"  << " - " << " Tipo " <<  std::endl;
                 prim=false;
             }
@@ -243,7 +243,7 @@ void showEqualTo (std::vector<PokemonType> & pokemonVector)
     }
     else
     {
-        std::cout << "Cantidad de Pokemons con nivel igual a 500: " << contador << std::endl;
+        std::cout << "Posees " << contador << " Pokemons con nivel igual a 500. Bien hecho! " << std::endl;
     }
 
 }
@@ -360,10 +360,10 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
     //Imprimo los de mayor nivel segun su Type.
     //Tambien valido si realmente hay registrados de ese tipo preguntando por el bool de cada type
-    std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
+    std::cout << "Nombre -" << " " << "Tipo -" << " " << "Nivel" << std::endl;
     if(elec)
         {
-            std::cout << "No posee Pokemones Electricos." << std::endl;
+            std::cout << "No posees Pokemones electricos, lo siento." << std::endl;
         }
     else
         {
@@ -372,7 +372,7 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(fuego)
     {
-        std::cout << "No posee Pokemones de Fuego." << std::endl;
+        std::cout << "No posees Pokemones de fuego, lo siento." << std::endl;
     }
     else
     {
@@ -381,7 +381,7 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(tierra)
     {
-        std::cout << "No posee Pokemones de Tierra." << std::endl;
+        std::cout << "No posees Pokemones de tierra, lo siento." << std::endl;
     }
     else
     {
@@ -390,7 +390,7 @@ void showStrongestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(agua)
     {
-        std::cout << "No posee Pokemones de Agua." << std::endl;
+        std::cout << "No posee Pokemones de agua, lo siento." << std::endl;
     }
     else
     {
@@ -513,13 +513,14 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
     std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
     std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
     std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
-*/
+*/1
+
     //Imprimo los de menor nivel segun su Type.
     //Tambien valido si realmente hay registrados de ese tipo preguntando por el bool de cada type
-    std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
+    std::cout << "Nombre -" << " " << "Tipo -" << " " << "Nivel" << std::endl;
     if(elec)
     {
-        std::cout << "No posee Pokemones Electricos." << std::endl;
+        std::cout << "No posees Pokemones electricos, lo siento." << std::endl;
     }
     else
     {
@@ -528,7 +529,7 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(fuego)
     {
-        std::cout << "No posee Pokemones de Fuego." << std::endl;
+        std::cout << "No posees Pokemones de fuego, lo siento." << std::endl;
     }
     else
     {
@@ -537,7 +538,7 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(tierra)
     {
-        std::cout << "No posee Pokemones de Tierra." << std::endl;
+        std::cout << "No posees Pokemones de tierra, lo siento." << std::endl;
     }
     else
     {
@@ -546,7 +547,7 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 
     if(agua)
     {
-        std::cout << "No posee Pokemones de Agua." << std::endl;
+        std::cout << "No posees Pokemones de agua, lo siento." << std::endl;
     }
     else
     {
@@ -559,15 +560,15 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
 int main() {
     //main menu options
     std::map<int, std::string> mapOptions = {
-            {1, "Registrar Pokemones"},
-            {2, "Consultar cantidad de Pokemones por TIPO"},
-            {3, "Consultar promedio de NIVEL de Pokemons por cada TIPO"},
-            {4, "Consultar cantidad de Pokemons con NIVEL mayor a 500"},
-            {5, "Consultar cantidad de Pokemons con NIVEL menor a 500"},
-            {6, "Consultar cantidad de Pokemons con NIVEL igual a 500"},
-            {7, "Mostrar Pokemon mas poderoso por TIPO"},
-            {8, "Mostrar el Pokemon más debil por TIPO"},
-            {9, "Salir de la Pokedex"}
+            {1, "Registrar Pokemones."},
+            {2, "Consultar cantidad de Pokemones por TIPO."},
+            {3, "Consultar promedio de NIVEL de Pokemons por cada TIPO."},
+            {4, "Consultar cantidad de Pokemons con NIVEL mayor a 500."},
+            {5, "Consultar cantidad de Pokemons con NIVEL menor a 500."},
+            {6, "Consultar cantidad de Pokemons con NIVEL igual a 500."},
+            {7, "Mostrar Pokemon mas poderoso por TIPO."},
+            {8, "Mostrar el Pokemon mas debil por TIPO."},
+            {9, "Salir de la Pokedex."}
     };
 
     //en este vector se guardaran los pokemones en memoria con una estructura del tipo PokemonType, detallada en Datatypes.h
