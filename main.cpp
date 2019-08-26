@@ -505,15 +505,15 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
         }
     }
 
-   /*
-    * Si no hay ninguno de tal tipo arroja un template vacio Lucas
-    * //Imprimo los de menor nivel segun su Type.
+
+    //Si no hay ninguno de tal tipo arroja un template vacio Lucas
+    //Imprimo los de menor nivel segun su Type.
     std::cout << "Nombre" << " " << "Tipo" << " " << "Nivel" << std::endl;
     std::cout << et.Name << " - " << et.Type << " - " << et.Level << std::endl;
     std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
     std::cout << tt.Name << " - " << tt.Type << " - " << tt.Level << std::endl;
     std::cout << at.Name << " - " << at.Type << " - " << at.Level << std::endl;
-*/1
+
 
     //Imprimo los de menor nivel segun su Type.
     //Tambien valido si realmente hay registrados de ese tipo preguntando por el bool de cada type
@@ -533,7 +533,7 @@ void showWeakestPokemon(std::vector<PokemonType> & pokemonVector){
     }
     else
     {
-        std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;;
+        std::cout << ft.Name << " - " << ft.Type << " - " << ft.Level << std::endl;
     }
 
     if(tierra)
