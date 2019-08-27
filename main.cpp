@@ -18,10 +18,10 @@ void registerNewPokemons(std::vector<PokemonType> & pokemonVector)
         if(newPokemon.Type != 'Q')
         {
             //solicita valor int por terminal, la expresion sera evaluada por regular expression para coincidir con un numero entre 1 y 1000.
-            TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 1000):>", "^([1-9][0-9]{0,2}$|^1000)$", "\tERROR! (ingresa un valor entero entre 1 y 1000)");
+            TerminalUtilities::getValidValue<int>(newPokemon.Level, "Ingresa NIVEL (valor entero entre 1 y 1000 sin espacios):>", "^([1-9][0-9]{0,2}$|^1000)$", "\tERROR! (ingresa un valor entero entre 1 y 1000 sin espacios)");
 
             //solicita valor char[10] por terminal, la expresion sera evaluada por regular expression para coincidir con una combinacion de letras mayusculas y minusculas entre a y z sin considerar caracteres especiales (longitud entre 1 y 10)
-            TerminalUtilities::getValidValue<std::string>(newPokemon.Name, "Ingresa NOMBRE (cadena de letras, 10 max):>", "^[a-zA-Z]{1,10}$", "\tERROR! (ingresa una cadena de letras, 10 longitud max)");
+            TerminalUtilities::getValidValue<std::string>(newPokemon.Name, "Ingresa NOMBRE (cadena de letras sin espacios, 10 max):>", "^[a-zA-Z]{1,10}$", "\tERROR! (ingresa una cadena de letras, 10 longitud max sin espacios)");
 
             pokemonVector.push_back(newPokemon);
 
@@ -659,7 +659,7 @@ int main() {
         {
             //muestra mensaje para cualquier opcion que no sea la salida
             if(selectedOption != 9)
-                std::cout << "Presione cualquier tecla para continuar..." << std::endl;
+                std::cout << "Presione Enter para continuar..." << std::endl;
             std::cin.ignore();
         }
 
